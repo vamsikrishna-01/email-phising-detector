@@ -4,3 +4,4 @@ streamlit>=1.32.0
 python-dotenv>=0.19.0
 requests>=2.25.0
 beautifulsoup4>=4.9.0
+gunicorn>=21.2.0

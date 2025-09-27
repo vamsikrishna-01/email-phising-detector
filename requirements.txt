@@ -1,8 +1,6 @@
-Flask==3.0.3
-flask-cors==4.0.0
-streamlit==1.32.2
-python-dotenv==1.0.1
-requests==2.31.0
-beautifulsoup4==4.12.3
-numpy==1.26.2
-pandas==2.1.4
+Flask>=2.0.0,<3.0.0
+flask-cors>=3.0.10
+streamlit>=1.32.0
+python-dotenv>=0.19.0
+requests>=2.25.0
+beautifulsoup4>=4.9.0

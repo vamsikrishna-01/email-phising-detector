@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results - Phishing Knowledge Test</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <header class="quiz-header">
+            <h1>Quiz Results</h1>
+            <p>See how well you did on the phishing knowledge test</p>
+        </header>
+
+        <div class="results-summary">
+            <div class="score-circle">
+                <div class="score-percentage">{{ '%.0f'|format((score / total) * 100) }}%</div>
+                <div class="score-text">Score</div>
+            </div>
+            <div class="score-details">
+                <p><i class="fas fa-check-circle"></i> <strong>{{ score }}</strong> out of {{ total }} correct</p>
+                <p><i class="fas fa-clock"></i> Completed in {{ '%.1f'|format(time_taken) }} seconds</p>
+                <p><i class="fas fa-trophy"></i> 
+                    {% if score == total %}
+                        Perfect Score! You're a phishing expert! 🎉
+                    {% elif score >= total * 0.8 %}
+                        Excellent! You have great phishing awareness! 👍
+                    {% elif score >= total * 0.6 %}
+                        Good job! You know a lot about phishing. 😊
+                    {% else %}
+                        Keep learning! Review the answers to improve. 📚
+                    {% endif %}
+                </p>
+                <a href="{{ url_for('quiz') }}" class="btn-primary"><i class="fas fa-redo"></i> Try Again</a>
+                <a href="{{ url_for('index') }}" class="btn-secondary"><i class="fas fa-home"></i> Back to Home</a>
+            </div>
+        </div>
+
+        <div class="results-details">
+            <h2>Question Breakdown</h2>
+            {% for result in results %}
+            <div class="result-item {% if result.is_correct %}correct{% else %}incorrect{% endif %}">
+                <div class="question">
+                    <strong>Q{{ loop.index }}:</strong> {{ result.question }}
+                </div>
+                <div class="user-answer">
+                    <strong>Your answer:</strong> {{ result.user_answer }}
+                </div>
+                {% if not result.is_correct %}
+                <div class="correct-answer">
+                    <strong>Correct answer:</strong> {{ result.correct_answer }}
+                </div>
+                {% endif %}
+                <div class="explanation">
+                    {{ result.explanation }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="quiz-actions">
+            <a href="{{ url_for('quiz') }}" class="btn-primary"><i class="fas fa-redo"></i> Try Again</a>
+            <a href="{{ url_for('index') }}" class="btn-secondary"><i class="fas fa-home"></i> Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>
